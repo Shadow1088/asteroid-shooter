@@ -14,7 +14,7 @@ class Ship(Objects):
 
     def move(self, x_m:int, y_m:int):
         self.x += self.speed * x_m
-        self.y += self.speed * x_y
+        self.y += self.speed * y_m
 
     def hit(self, amount):
         self.durability -= amount

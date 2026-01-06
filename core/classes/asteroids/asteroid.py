@@ -22,6 +22,17 @@ class Asteroid(Objects):
         self.y += self.speed
         self.x += self.speed * self.direction
 
+
+    def collisions(self):
+        for bul in entities[1]:
+            if not(
+                self.x+self.w < bul.x or
+                self.y+self.h < bul.y or
+                self.x > bul.x+bul.w or
+                self.y > bul.y+bul.h
+            ): self.hit(bul.damage)
+
+
     @classmethod
     def spawn_random(cls):
         size = randint(*asteroid_size_range)

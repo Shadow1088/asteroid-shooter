@@ -10,4 +10,5 @@ asteroid_spawn_interval = 1 # s
 
 last_spawn_time = time()
 
-ship_speed = 2
+ship_speed = 8
+bullet_speed = 8

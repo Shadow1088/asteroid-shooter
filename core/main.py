@@ -1,5 +1,6 @@
 from classes.asteroids.asteroid import Asteroid
 from classes.main.ship import Ship
+
 import pygame
 from time import time
 from settings import *
@@ -21,9 +22,21 @@ spaceship = Ship(WINDOW_WIDTH//2-DEFAULT_SHIP_SIZE//2, WINDOW_HEIGHT-DEFAULT_SHI
 
 while running:
 
+    pressed = pygame.key.get_pressed()
+    if pressed[pygame.K_LEFT]:
+        spaceship.move(-1,0)
+    if pressed[pygame.K_RIGHT]:
+        spaceship.move(1,0)
+    if pressed[pygame.K_UP]:
+        spaceship.move(0,-1)
+    if pressed[pygame.K_DOWN]:
+        spaceship.move(0,1)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+
 
     if entities[0] == []:
         running = False
@@ -41,8 +54,15 @@ while running:
         screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
         ent.collisions()
 
+
+    for ent in entities[1]:
+        screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
+        ent.move()
+
+
     for ent in entities[2]:
         screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
+        ent.collisions()
         ent.move()
 
 

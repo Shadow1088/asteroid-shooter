@@ -1,4 +1,5 @@
-from variables import IMAGES
+from variables import IMAGES, entities
+
 
 class Objects():
     def __init__(self, x:int, y:int, w:int, h:int, image:str):
