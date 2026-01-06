@@ -1,3 +1,4 @@
+from classes.asteroids.asteroid import Asteroid
 import pygame
 from time import time
 from settings import *
@@ -13,6 +14,8 @@ clock = pygame.time.Clock()
 loadImages("../media/images/")
 print(IMAGES)
 
+start_time = time()
+
 while running:
 
     for event in pygame.event.get():
@@ -21,7 +24,15 @@ while running:
 
     screen.fill("black")
 
+    if (time()- last_spawn_time) > asteroid_spawn_interval:
+        Asteroid.spawn_random()
+        last_spawn_time = time()
+
+    print(last_spawn_time - time())
     # RENDER YOUR GAME HERE
+    for ent in entities[2]:
+        screen.blit(ent.image, (ent.x, ent.y))
+        ent.move()
 
     # flip() the display to put your work on screen
     pygame.display.flip()
