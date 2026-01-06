@@ -1,4 +1,5 @@
 from classes.asteroids.asteroid import Asteroid
+from classes.main.ship import Ship
 import pygame
 from time import time
 from settings import *
@@ -16,11 +17,16 @@ print(IMAGES)
 
 start_time = time()
 
+spaceship = Ship(WINDOW_WIDTH//2-DEFAULT_SHIP_SIZE//2, WINDOW_HEIGHT-DEFAULT_SHIP_SIZE, DEFAULT_SHIP_SIZE, DEFAULT_SHIP_SIZE, "spaceship")
+
 while running:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    if entities[0] == []:
+        running = False
 
     screen.fill("black")
 
@@ -28,11 +34,17 @@ while running:
         Asteroid.spawn_random()
         last_spawn_time = time()
 
-    print(last_spawn_time - time())
     # RENDER YOUR GAME HERE
+
+
+    for ent in entities[0]:
+        screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
+        ent.collisions()
+
     for ent in entities[2]:
-        screen.blit(ent.image, (ent.x, ent.y))
+        screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
         ent.move()
+
 
     # flip() the display to put your work on screen
     pygame.display.flip()
