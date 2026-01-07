@@ -1,8 +1,10 @@
 from classes.asteroids.asteroid import Asteroid
 from classes.main.ship import Ship
+from classes.bullets.bullet import Bullet
 
 import pygame
 from time import time
+
 from settings import *
 from functions import *
 from variables import *
@@ -31,6 +33,9 @@ while running:
         spaceship.move(0,-1)
     if pressed[pygame.K_DOWN]:
         spaceship.move(0,1)
+    if pressed[pygame.K_SPACE]:
+        Bullet(spaceship.x+spaceship.w//2, spaceship.y, 5, 10 ,"bullet", bullet_speed, 1)
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -53,17 +58,23 @@ while running:
     for ent in entities[0]:
         screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
         ent.collisions()
+        if ent.y > WINDOW_HEIGHT+ent.h:
+            entities[0].pop(entities[0].index(ent))
 
 
     for ent in entities[1]:
         screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
         ent.move()
+        if ent.y < WINDOW_HEIGHT+ent.h:
+            entities[1].pop(entities[1].index(ent))
 
 
     for ent in entities[2]:
         screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
         ent.collisions()
         ent.move()
+        if ent.y >= WINDOW_HEIGHT+ent.h:
+            entities[2].pop(entities[2].index(ent))
 
 
     # flip() the display to put your work on screen

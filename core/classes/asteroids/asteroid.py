@@ -1,6 +1,6 @@
 from classes.main.objects import Objects
 from random import randint, uniform
-from variables import asteroid_speed_range, entities, asteroid_size_range
+from variables import asteroid_speed_range, entities, asteroid_size_range, score
 
 class Asteroid(Objects):
     def __init__(self, x: int, y: int, w: int, h: int, image: str, durability: int, speed: int=1):
@@ -14,9 +14,14 @@ class Asteroid(Objects):
         return f'{super().__str__()}, {self.durability}, {self.speed}'
 
     def hit(self, amount):
+        global score
         self.durability -= amount
         if not self.durability > 0:
-            entities[2].pop(entities[2].index(self))
+            try:
+                entities[2].pop(entities[2].index(self))
+                score += 1
+            except:
+                pass
 
     def move(self):
         self.y += self.speed
