@@ -62,10 +62,11 @@ while running:
             entities[0].pop(entities[0].index(ent))
 
 
+
     for ent in entities[1]:
         screen.blit(pygame.transform.scale(ent.image, (ent.w, ent.h)), (ent.x, ent.y))
         ent.move()
-        if ent.y < WINDOW_HEIGHT+ent.h:
+        if ent.y > WINDOW_HEIGHT+ent.h:
             entities[1].pop(entities[1].index(ent))
 
 
