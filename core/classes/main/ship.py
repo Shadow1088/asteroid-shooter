@@ -23,10 +23,21 @@ class Ship(Objects):
 
 
     def collisions(self):
+        sx1 = self.x + self.w / 4
+        sy1 = self.y + self.h / 4
+        sx2 = self.x + self.w - self.w / 4
+        sy2 = self.y + self.h - self.h / 4
+
         for ast in entities[2]:
-            if not(
-                self.x+self.w < ast.x or
-                self.y+self.h < ast.y or
-                self.x > ast.x+ast.w or
-                self.y > ast.y+ast.h
-            ): self.hit(ast.durability)
+            ax1 = ast.x
+            ay1 = ast.y
+            ax2 = ast.x + ast.w
+            ay2 = ast.y + ast.h
+
+            if not (
+                sx2 < ax1 or
+                sx1 > ax2 or
+                sy2 < ay1 or
+                sy1 > ay2
+            ):
+                self.hit(ast.durability)
